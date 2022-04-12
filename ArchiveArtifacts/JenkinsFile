@@ -1,0 +1,16 @@
+stage('stage 0') {
+
+    steps {
+
+        script {
+            echo "############################ Triggering Jobs ############################"
+            }
+        }
+
+        post {
+            always {
+                echo "Collecting Nessus reports"
+                archiveArtifacts artifacts: '**/**/**/NessusTest.html', fingerprint: false
+                }
+        }
+}

@@ -1,0 +1,9 @@
+stage('stage 0') {
+
+    agent {
+        node {
+                label 'lab1'
+                customWorkspace 'C:\\jenkins\\workspace\\folder'
+        }
+    }
+}

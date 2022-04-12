@@ -1,0 +1,13 @@
+stage('Notify') {
+
+    steps{
+        echo "############################ Sending Email and Teams notifications ############################"
+    }
+
+    post {
+        always {
+            office365ConnectorSend webhookUrl: "https://xyz.webhook.office.com/",
+            factDefinitions: [[name: "Pipeline Status", template: "${currentBuild.result}"], [name: "Pipeline Duration", template: "${currentBuild.durationString.replace(' and counting', '')}"]]
+        }
+    }
+}

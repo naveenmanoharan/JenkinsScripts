@@ -1,0 +1,20 @@
+stage('Notify') {
+
+    steps{
+        echo "############################ Sending Email and Teams notifications ############################"
+    }
+
+    post {
+        always {
+                   emailext (attachLog: true, body: """<p>Executed Job <b>\'${env.JOB_NAME} - ${env.BUILD_NUMBER}\'
+                   </b></p><p>View console output at &QUOT;<a href='${env.BUILD_URL}'>${env.JOB_NAME} [${env.BUILD_NUMBER}]</a>&QUOT;</p>
+                   <p><i>Time Taken for completion: ${currentBuild.durationString.replace(' and counting', '')}</i></p>
+                   """,
+                   subject: "Job Status: ${currentBuild.result?:'SUCCESS'} - Job ${env.JOB_NAME} build #${env.BUILD_NUMBER}",
+                   from: "abc@xyz.com",
+                   to: "def@xyz.com",
+                   mimeType: 'text/html')
+
+        }
+    }
+}
